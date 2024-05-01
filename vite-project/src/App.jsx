@@ -46,8 +46,10 @@ const styles = {
   },
 };
 
+//REVIEW - server(api) 폴더 밑에 저장하는 것이 좋음
 const performFetch = async (url, options) => {
   const response = await fetch(url, options);
+
   if (!response.ok) {
     throw new Error("Network response was not ok");
   }
@@ -86,10 +88,13 @@ const deleteTodo = (id) => {
 
 function App() {
   const queryClient = useQueryClient();
+
+  //REVIEW - 변수는 useState로 만든다고 생각하기!
   const [newTodo, setNewTodo] = useState("");
   const [isEditing, setIsEditing] = useState(null);
   const [editTodoValue, setEditTodoValue] = useState("");
 
+  //REVIEW - GET 메소드는 useQuery를 이용해서
   const {
     data: todos,
     error,
@@ -99,6 +104,7 @@ function App() {
     queryFn: fetchTodos,
   });
 
+  //REVIEW - ADD, PATCH, DELETE는 useMutation을 이용해서
   const onMutateSuccess = (additionalActions) => () => {
     queryClient.invalidateQueries(["todos"]);
     if (additionalActions) additionalActions();
