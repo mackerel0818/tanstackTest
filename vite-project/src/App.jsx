@@ -94,41 +94,101 @@ function App() {
     updateTodoMutation.mutate({ id, title: editTodoValue });
   };
 
+  const styles = {
+    container: {
+      fontFamily: "Arial, sans-serif",
+      color: "#333",
+      backgroundColor: "#f4f4f4",
+      padding: "20px",
+      borderRadius: "5px",
+      maxWidth: "600px",
+      margin: "0 auto",
+    },
+    input: {
+      width: "75%",
+      padding: "10px",
+      margin: "15px 10px 0",
+      borderRadius: "5px",
+      border: "1px solid #ccc",
+    },
+    wrap: {
+      display: "flex",
+      justifyContent: "space-between",
+      alignItems: "center",
+    },
+    button: {
+      padding: "10px 20px",
+      borderRadius: "15px",
+      border: "none",
+      cursor: "pointer",
+      backgroundColor: "#555",
+      color: "white",
+      marginLeft: "5px",
+    },
+    listItem: {
+      listStyle: "none",
+      margin: "20px 0",
+      backgroundColor: "#fff",
+      padding: "10px",
+      borderRadius: "5px",
+    },
+    todoText: {
+      marginRight: "10px",
+    },
+  };
+
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>An error occurred: {error.message}</div>;
 
   return (
-    <div>
-      <h1>Todos</h1>
+    <div style={styles.container}>
+      <h1>My Simple Todolist</h1>
       <input
+        style={styles.input}
         type="text"
         value={newTodo}
         onChange={(e) => setNewTodo(e.target.value)}
         placeholder="Add new todo"
       />
-      <button onClick={handleAddTodo}>Add Todo</button>
+      <button style={styles.button} onClick={handleAddTodo}>
+        Add Todo
+      </button>
       <ul>
         {todos.map((todo) => (
-          <li key={todo.id}>
+          <li key={todo.id} style={styles.listItem}>
             {isEditing === todo.id ? (
               <>
                 <input
+                  style={styles.input}
                   type="text"
                   value={editTodoValue}
                   onChange={(e) => setEditTodoValue(e.target.value)}
                 />
-                <button onClick={() => handleSaveEdit(todo.id)}>Save</button>
+                <button
+                  style={styles.button}
+                  onClick={() => handleSaveEdit(todo.id)}
+                >
+                  Save
+                </button>
               </>
             ) : (
-              <>
-                {todo.title}
-                <button onClick={() => handleEditTodo(todo.id, todo.title)}>
-                  Edit
-                </button>
-                <button onClick={() => handleDeleteTodo(todo.id)}>
-                  Delete
-                </button>
-              </>
+              <div style={styles.wrap}>
+                <span style={styles.todoText}>{todo.title}</span>
+                <div style={styles.wrapBtn}>
+                  <button
+                    style={styles.button}
+                    onClick={() => handleEditTodo(todo.id, todo.title)}
+                  >
+                    Edit
+                  </button>
+                  <button
+                    style={styles.button}
+                    onClick={() => handleDeleteTodo(todo.id)}
+                  >
+                    Delete
+                  </button>
+                </div>
+              </div>
             )}
           </li>
         ))}
