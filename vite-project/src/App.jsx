@@ -3,6 +3,49 @@ import React, { useState } from "react";
 
 const url = "http://localhost:5000/todos";
 
+const styles = {
+  container: {
+    fontFamily: "Arial, sans-serif",
+    color: "#333",
+    backgroundColor: "#f4f4f4",
+    padding: "20px",
+    borderRadius: "5px",
+    maxWidth: "600px",
+    margin: "0 auto",
+  },
+  input: {
+    width: "75%",
+    padding: "10px",
+    margin: "15px 10px 0",
+    borderRadius: "5px",
+    border: "1px solid #ccc",
+  },
+  wrap: {
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
+  button: {
+    padding: "10px 20px",
+    borderRadius: "15px",
+    border: "none",
+    cursor: "pointer",
+    backgroundColor: "#555",
+    color: "white",
+    marginLeft: "5px",
+  },
+  listItem: {
+    listStyle: "none",
+    margin: "20px 0",
+    backgroundColor: "#fff",
+    padding: "10px",
+    borderRadius: "5px",
+  },
+  todoText: {
+    marginRight: "10px",
+  },
+};
+
 const performFetch = async (url, options) => {
   const response = await fetch(url, options);
   if (!response.ok) {
@@ -92,49 +135,6 @@ function App() {
 
   const handleSaveEdit = (id) => {
     updateTodoMutation.mutate({ id, title: editTodoValue });
-  };
-
-  const styles = {
-    container: {
-      fontFamily: "Arial, sans-serif",
-      color: "#333",
-      backgroundColor: "#f4f4f4",
-      padding: "20px",
-      borderRadius: "5px",
-      maxWidth: "600px",
-      margin: "0 auto",
-    },
-    input: {
-      width: "75%",
-      padding: "10px",
-      margin: "15px 10px 0",
-      borderRadius: "5px",
-      border: "1px solid #ccc",
-    },
-    wrap: {
-      display: "flex",
-      justifyContent: "space-between",
-      alignItems: "center",
-    },
-    button: {
-      padding: "10px 20px",
-      borderRadius: "15px",
-      border: "none",
-      cursor: "pointer",
-      backgroundColor: "#555",
-      color: "white",
-      marginLeft: "5px",
-    },
-    listItem: {
-      listStyle: "none",
-      margin: "20px 0",
-      backgroundColor: "#fff",
-      padding: "10px",
-      borderRadius: "5px",
-    },
-    todoText: {
-      marginRight: "10px",
-    },
   };
 
   if (isLoading) return <div>Loading...</div>;
